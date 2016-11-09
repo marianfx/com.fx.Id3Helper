@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    
+    <link href="./css/font.css" rel="stylesheet">
+    <link href="./css/materialize.css" rel="stylesheet">
+    <link href="./css/sweetalert.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+    <title>ID3 Helper</title>
+</head>
+
+<body>
+    <div class="row center">
+        <h3 class="green-text"> ID3 Helper.</h3>
+    </div>
+    <div class="row center">
+        <h5> Complete the fields below</h5>
+    </div>
+
+    <div class="row center-align">
+        <form class="col s12 center-align" style="margin: 0px auto;">
+            <div class="row">
+                <div class="input-field col s12 m6 l6">
+                    <input placeholder="Ex. 5 6 8 12 etc" id="baseclasses" type="text" class="validate">
+                    <label for="baseclasses" class="active">Base classes (S):</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6 l6">
+                    <p class="range-field valign">
+                        <input type="range" id="theinterval" min="1" max="10" value="2" />
+                    </p>
+                    <label for="theinterval" class="active">The number of partitions. Select and then enable 'create'.</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6 l6">
+                    <!-- Switch -->
+                    <div class="switch">
+                        Partitions :
+                        <label>
+                        Delete
+                        <input id="theindicator" type="checkbox">
+                        <span class="lever"></span> Create
+                    </label>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="row center-align">
+                <h6>Partitions</h6>
+                <div id="partitionscontainer">
+                </div>
+            </div>
+            <div class="row center-align">
+                <a id="submitBtn" class="waves-effect waves-light btn red">Compute<i class="mdi-action-favorite right"></i></a>
+            </div>
+            <div class="row center-align">
+                <h5>Output</h5>
+                <div id="outputs" class="col s6 left-align">
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./js/materialize.js"></script>
+    <script src="./js/perfect-scrollbar.js"></script>
+    <script src="./js/sweetalert.min.js"></script>
+    <script src="./js/plugins.preparer.js"></script>
+
+    <script src="cordova.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>

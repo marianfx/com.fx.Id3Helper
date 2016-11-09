@@ -1,0 +1,8 @@
+.row .col {
+    margin: 0px auto !important;
+    float: none !important;
+}
+
+#outputs {
+    border-top: 1px solid green;
+}
