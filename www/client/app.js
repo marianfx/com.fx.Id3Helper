@@ -58,7 +58,7 @@ class App{
         }
 
         return {
-            ig: IG,
+            ig: IG.toFixed(4),
             base: partitions[0],
             allpartitions: partitions
         };
@@ -109,15 +109,34 @@ class App{
             partitions.push(tempPart);
         }
 
+        // check for sum equality partitions - base
+        let N = partitions[0].elementsCount;
+        
+        for(var i = 0; i < N; i++){
+            let baseValue = partitions[0].getValue(i);
+            let sum = 0;
+            for(var j = 1; j < _.size(partitions); j++){
+                let partValue = partitions[j].getValue(i);
+                sum += partValue;
+            }
+            if (sum != baseValue){
+                this.displayMessage("Sum of values for partitions (on 'columns' / 'classes') should sum up to the value of the base class (column). This does not apply on COLUMN " + (i + 1) + ".");
+                return;
+            }
+        }
+
         let result = this.computeValues(partitions);
         console.log(result);
 
-        var ig = "<h5><b>IG</b>:" + result.ig + "</h5>"; 
+        let color = "class='green-text'";
+        if(result.ig < 0.05)
+            color = "class='red-text'";
+        var ig = "<h5 " + color + "><b>IG: " + result.ig + "</b></h5>"; 
         $('#outputs').html(ig);
-        var base = "<h5><b>H(S)</b>:" + result.base.entropy + "</h5>"; 
+        var base = "<h5><b>H(S)</b>: " + result.base.entropy + "</h5>"; 
         $('#outputs').append(base);
         for(var i = 1; i < _.size(result.allpartitions); i ++){
-            var val = "<h5><b>H(P" + i + ")</b>:" + result.allpartitions[i].entropy + "</h5>";  
+            var val = "<h5><b>H(P" + i + ")</b>: " + result.allpartitions[i].entropy + "</h5>";  
             $('#outputs').append(val);
         }
     }

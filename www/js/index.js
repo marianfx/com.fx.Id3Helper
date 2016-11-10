@@ -85,7 +85,7 @@ var App = function () {
             }
 
             return {
-                ig: IG,
+                ig: IG.toFixed(4),
                 base: partitions[0],
                 allpartitions: partitions
             };
@@ -141,15 +141,33 @@ var App = function () {
                 partitions.push(tempPart);
             }
 
+            // check for sum equality partitions - base
+            var N = partitions[0].elementsCount;
+
+            for (var i = 0; i < N; i++) {
+                var baseValue = partitions[0].getValue(i);
+                var sum = 0;
+                for (var j = 1; j < _lodash2.default.size(partitions); j++) {
+                    var partValue = partitions[j].getValue(i);
+                    sum += partValue;
+                }
+                if (sum != baseValue) {
+                    this.displayMessage("Sum of values for partitions (on 'columns' / 'classes') should sum up to the value of the base class (column). This does not apply on COLUMN " + (i + 1) + ".");
+                    return;
+                }
+            }
+
             var result = this.computeValues(partitions);
             console.log(result);
 
-            var ig = "<h5><b>IG</b>:" + result.ig + "</h5>";
+            var color = "class='green-text'";
+            if (result.ig < 0.05) color = "class='red-text'";
+            var ig = "<h5 " + color + "><b>IG: " + result.ig + "</b></h5>";
             (0, _jquery2.default)('#outputs').html(ig);
-            var base = "<h5><b>H(S)</b>:" + result.base.entropy + "</h5>";
+            var base = "<h5><b>H(S)</b>: " + result.base.entropy + "</h5>";
             (0, _jquery2.default)('#outputs').append(base);
             for (var i = 1; i < _lodash2.default.size(result.allpartitions); i++) {
-                var val = "<h5><b>H(P" + i + ")</b>:" + result.allpartitions[i].entropy + "</h5>";
+                var val = "<h5><b>H(P" + i + ")</b>: " + result.allpartitions[i].entropy + "</h5>";
                 (0, _jquery2.default)('#outputs').append(val);
             }
         }
@@ -230,6 +248,17 @@ var Partition = function () {
                 this.count += value;
             }
         }
+
+        /**
+         * @index {Number} index
+         * @returns {Number}
+         */
+
+    }, {
+        key: 'getValue',
+        value: function getValue(index) {
+            return parseInt(this.array[index]);
+        }
     }, {
         key: 'computeEntropy',
         value: function computeEntropy() {
@@ -237,6 +266,8 @@ var Partition = function () {
                 var value = parseInt(this.array[i]) / this.count;
                 if (value != 0) this.entropy += value * Math.log2(1.0 / value);
             }
+            //round to 4 decimals
+            this.entropy = this.entropy.toFixed(4);
         }
     }]);
 

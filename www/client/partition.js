@@ -19,6 +19,14 @@ class Partition{
             this.count += value;
         }
     }
+
+    /**
+     * @index {Number} index
+     * @returns {Number}
+     */
+    getValue(index){
+        return parseInt(this.array[index]);
+    }
     
 
     computeEntropy(){
@@ -27,7 +35,8 @@ class Partition{
             if(value != 0)
                 this.entropy += value * Math.log2(1.0 / value);
         }
-        
+        //round to 4 decimals
+        this.entropy = this.entropy.toFixed(4);
     }
 }
 
